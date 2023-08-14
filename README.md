@@ -10,7 +10,7 @@
   * [Video](#video)
   * [Contact-Me](#contact-me)
   * [License](#license)
-  https://opensource.org/licenses/MIT
+    https://opensource.org/licenses/MIT
   ## Description
   this is a program where people can interact with one another, creating an account, post blogs and users being able to to interact 
   ## Requirements
@@ -18,7 +18,7 @@
 
   ## Api-Routes
   ## Usage
-  javascript, mongoDB, HTML, CSS
+  javascript, mongoDB, Insomia
 
   ## Screen-Shot
 
