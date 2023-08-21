@@ -14,9 +14,13 @@
   ## Description
   this is a program where people can interact with one another, creating an account, post blogs and users being able to to interact 
   ## Requirements
-  nodemon, express.js, cors, and mongoose, mongoDb
+  nodemon, express.js, mongoose, mongoDb, Bycrpt, Dotenv, helmet, Morgan, yarn
 
   ## Api-Routes
+	`get`:
+	`Post`:
+	`Put`:
+	`Delete`:
   ## Usage
   javascript, mongoDB, Insomia
 
