@@ -12,7 +12,8 @@
   * [License](#license)
     https://opensource.org/licenses/MIT
   ## Description
-  this is a program where people can interact with one another, creating an account, post blogs and users being able to to interact 
+  this is the Back-End of a program where users can creating an account, post blogs, users being able to to interact
+	with friends by commenting on their post, also add follow each other  
   ## Requirements
   nodemon, express.js, mongoose, mongoDb, Bycrpt, Dotenv, helmet, Morgan, yarn
 
