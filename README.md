@@ -6,7 +6,6 @@
   * [Requirements](#requirements)
   * [Api-Routes](#api-routes)
   * [Usage](#usage)
-  * [Screen-Shot](#screen-shot)
   * [Video](#video)
   * [Contact-Me](#contact-me)
   * [License](#license)
@@ -26,13 +25,10 @@
   ## Usage
   javascript, mongoDB, Insomia
 
-  ## Screen-Shot
-
   ## Video
   [Untitled_ Aug 21, 2023 8_59 PM.webm](https://github.com/SuperFeeeelix/Catch/assets/127154412/a21e128e-6d37-488d-94dc-49b7f3865aca)
 
 
-  
   ## Contact-Me
   * Name - Oswaldo O. Felix Thompson
   * Email - Oswaldo_felix@yahoo.com
