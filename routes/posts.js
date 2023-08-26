@@ -62,6 +62,19 @@ router.put("/:id/like", async (req,res) => {
     }
 });
 
+router.post('/:id/comment', async (req, res) => {
+    try{
+        const { content, postId } = req.body.Id;
+        
+        const post = await Post.findById(postId);
+        if(!post) {
+            return res.status(404).json("unable to find post")
+        }
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+}
+
 
 //get a post 
 router.get("/:id", async (req, res) => {
