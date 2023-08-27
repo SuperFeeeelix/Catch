@@ -1,70 +1,33 @@
 const mongoose = require('mongoose');
 
-const UserSchema = new mongoose.Schema({
-    username:{
-        type:String,
-        require: true,
-        min:3,
-        max:25,
-        unique:true,
-
-    },
-    email:{
-        type:String,
+const userSchema = New mongoose.Schema ({
+    username: {
+        type: String,
+        unique: true, 
         required: true,
-        max:50,
-        unique:true
+        trim: true,
     },
-    password:{
-        type:String,
-        required:true,
-        min:6
+    email: {
+        type: Sting,
+        required: true,
+        unique: true,
+        match: [/.+@.+\..+/, 'Please enter a valid email address'],
+        
+    },
+    thoughts: [
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Thought',
+    ],
+    friends: [
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    ]
+})
 
-    },
-    profile:{
-        type:String,
-        default:""
-    },
-    coverPicture:{
-        type:String,
-        default:""
-    },
-    followers:{
-        type:Array,
-        default:[]
-    },
-    followings:{
-        type:Array,
-        default:[]
-    },
-    isAdmin:{
-        type:Boolean,
-        default:false,
+userSchema.virtual('friendCount').get(function () {
+    return this.friends.length;
+});
 
-    },
-    desc:{
-        type:String,
-        max:50,
-    },
-    city:{
-        type:String,
-        max:50
+const User = mongoose.model('User', userSchema);
 
-    },
-    from:{
-        type:String,
-        max:50
-    },
-    relationship:{
-        type:Number,
-        enum:[1,2,3],
-    
-    }
-
-},
-
-{ timestamps:true }
-
-);
-
-module.exports = mongoose.model("User", UserSchema);
+module.exports = User;
