@@ -62,6 +62,21 @@ router.put("/:id/like", async (req,res) => {
     }
 });
 
+router.put('/:id/comment', async (req, res) => {
+    try{
+        const post = await Post.findById(req.params.id);
+        if(!post.comment.includes(req.body.userId)) {
+            await post.updateOne({$push:{comment:req.body.userId } });
+            res.status(200)// posting a comment allow user to show the displayed comment
+        } else {
+            await post.updateOne({$pull:{comment:req.body.userId}});
+            res.status(200) // find a way to update comment and show the comment as an array with both users
+        }
+    } catch(err) {
+        return res.status(500).json(err);
+    }
+})
+
 
 //get a post 
 router.get("/:id", async (req, res) => {
