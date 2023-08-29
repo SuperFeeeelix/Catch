@@ -1,39 +1,43 @@
 const mongoose = require('mongoose');
 
-const userSchema = new mongoose.Schema ({
+const userSchema = new mongoose.Schema({
     username: {
         type: String,
-        unique: true, 
         required: true,
+        unique: true,
         trim: true,
     },
     email: {
-        type: Sting,
+        type: String,
         required: true,
         unique: true,
         match: [/.+@.+\..+/, 'Please enter a valid email address'],
-        
     },
-    thoughts: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Thought',
+    thoughts: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Thought',
+        },
+    ],
+    friends: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+        },
+    ],
+},
+{
+    toJSON: {
+        virtuals: true,
     },
-    friends: {
-        type:mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    }
-
+    id: false,
 });
 
-userSchema.virtual('friendCount').get(function () {
+// Create a virtual called friendCount that retrieves the length of the user's friends array field on query.
+userSchema.virtual('friendCount').get(function() {
     return this.friends.length;
 });
 
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;
-
-
-
-
-
