@@ -26,4 +26,4 @@ function formatDate(timestamp) {
 
 const Reaction = mongoose.model('Reaction', reactionSchema);
 
-module.exports = Reaciton;
+module.exports = Reaction;
