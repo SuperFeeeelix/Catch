@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const Post = require("../models/Post.js");
+const Post = require("../models/Thought.js");
 
 
 // create a post page
