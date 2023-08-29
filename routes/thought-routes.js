@@ -1,91 +1,77 @@
 const router = require("express").Router();
-const Post = require("../models/Thought.js");
+const Thought = require("../models/Thought.js");
 
-
-// create a post page
-
-router.post("/", async (req,res) => {
-    const newPost = new Post(req.body)
-    try{
-        const savedPost = await newPost.save()
-        res.status(200).json(savedPost);
-    } catch(err) {
-        return res.status(500).json(err)
+router.post("/", async (req, res) => {
+    try {
+        const newThought = new Thought(req.body);
+        const savedThought = await newThought.save();
+        res.status(200).json(savedThought);
+    } catch (err) {
+        res.status(500).json(err);
     }
 });
 
-//update a post 
 router.put("/:id", async (req, res) => {
-        try{
-            const post = await Post.findById(req.params.id);
-            if(post.userId === req.body.userId){
-                await post.updateOne({$set:req.body})
-                res.status(200).json("the post has been updated")
-            } else {
-                res.status(403).json("you can update only your posts");
-            }  
-        } catch (err) { 
-            return res.status(500).json(err);
-        } 
-    });
-
-// delete a post 
-router.delete("/:id", async(req, res) => {
-    try{
-        const post = await Post.findById(req.params.id);
-        if(post.userId === req.body.userId){
-            await post.deleteOne()
-            res.status(200).json("the post has been deleted")
-        } else{
-            res.status(403).json("you can delete only your posts");
-        }  
-
-    }catch(err) { 
-        return res.status(500).json(err);
-    } 
+    try {
+        const thought = await Thought.findById(req.params.id);
+        await thought.updateOne({ $set: req.body });
+        res.status(200).json("The thought has been updated");
+    } catch (err) {
+        res.status(500).json(err);
+    }
 });
 
-// like a post
-router.put("/:id/like", async (req,res) => {
-    try{
-        const post = await Post.findById(req.params.id);
-        if(!post.likes.includes(req.body.userId)) {
-            await post.updateOne({$push:{like:req.body.userId} });
-            res.status(200).json("you have liked their post")
-        } else{
-            await post.updateOne({$pull:{likes:req.body.userId}});
-            res.status(200).json("disliked the post")
-        }
+router.delete("/:id", async (req, res) => {
+    try {
+        const thought = await Thought.findById(req.params.id);
+        await thought.deleteOne();
+        res.status(200).json("The thought has been deleted");
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
 
-    }catch (err) {
-        return res.status(500).json(err);
+router.put("/:id/like", async (req, res) => {
+    try {
+        const thought = await Thought.findById(req.params.id);
+        if (!thought.likes.includes(req.body.userId)) {
+            await thought.updateOne({ $push: { like: req.body.userId } });
+            res.status(200).json("You have liked the thought");
+        } else {
+            await thought.updateOne({ $pull: { likes: req.body.userId } });
+            res.status(200).json("You have disliked the thought");
+        }
+    } catch (err) {
+        res.status(500).json(err);
     }
 });
 
 router.post('/:id/comment', async (req, res) => {
-    try{
-        const { content, postId } = req.body.Id;
-        
-        const post = await Post.findById(postId);
-        if(!post) {
-            return res.status(404).json("unable to find post")
+    try {
+        const { content, thoughtId } = req.body;
+        const thought = await Thought.findById(thoughtId);
+        if (!thought) {
+            return res.status(404).json("Unable to find thought");
         }
+        
+        thought.comments.push({ content });
+
+        const updatedThought = await thought.save();
+        
+        res.status(200).json(updatedThought);
+
     } catch (err) {
-        return res.status(500).json(err);
+        res.status(500).json(err);
     }
 });
 
-
-//get a post 
 router.get("/:id", async (req, res) => {
-    try{
-        const post = await Post.findById(req.params.id);
-        res.status(200).json(post)
-    } catch(err) {
-        return res.status(500).json(err);
+    try {
+        const thought = await Thought.findById(req.params.id);
+        res.status(200).json(thought);
+    } catch (err) {
+        res.status(500).json(err);
     }
-})
-// get timeline posts 
-
+});
 
 module.exports = router;
