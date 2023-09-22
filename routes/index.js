@@ -1,9 +1,14 @@
-const router = require('express').Router();
-const apiRoutes = require('./api-routes');
+const express = require('express');
+const router = express.Router();
 
-router.use('/api', apiRoutes);
+// Import and use the individual route files
+const friendRoutes = require('./friend-routes');
+const userRoutes = require('./users-routes');
+const thoughtRoutes = require('./thought-routes');
 
-router.use((req, res) => res.send('Wrong route!'));
-
+// Use the imported route files
+router.use('/api/friends', friendRoutes);
+router.use('/api/users', userRoutes);
+router.use('/api/thoughts', thoughtRoutes);
 
 module.exports = router;
